@@ -4,18 +4,18 @@ https://app.codility.com/programmers/trainings/1/flood_depth/
 
 
 def solution(A):
-    depths = []
+    max_depth = 0
     for i in range(len(A)):
-        if i > 0 and A[i] <= max(A[:i]) and i != (len(A) - 1) and A[i] < max(A[:i]) and A[i] < max(A[i + 1:]):
-            depth = min(max(A[:i]), max(A[i + 1:])) - A[i]
+        maxL = max(A[:i])
+        maxR = max(A[i + 1:])
+        if i > 0 and A[i] <= maxL and i != (len(A) - 1) and A[i] < maxL and A[i] < maxR:
+            depth = min(maxL, maxR) - A[i]
             #print(i, depth)
-            depths.append(depth)
-
-    max_depth = max(depths) if depths else 0
+            max_depth = depth if depth > max_depth else max_depth
     return max_depth
 
 
-A = [1, 3, 2, 1, 2, 1, 5, 3, 3, 4, 2]
+A = [15, 13, 5, 7, 4, 10, 12, 8, 2, 11, 6, 9, 3]
 print(solution(A))
 
 
